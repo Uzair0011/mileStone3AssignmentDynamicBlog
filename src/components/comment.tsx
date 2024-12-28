@@ -2,12 +2,14 @@
 import React, { useState } from "react";
 
 export default function Comment() {
-  const [comments, setComments] = useState([]); // State for comments
-  const [name, setName] = useState(""); // State for name input
-  const [message, setMessage] = useState(""); // State for message input
-  const [editIndex, setEditIndex] = useState(null); // State for editing comments
+  const [comments, setComments] = useState<{ name: string; message: string }[]>(
+    []
+  ); // State for comments
+  const [name, setName] = useState<string>(""); // State for name input
+  const [message, setMessage] = useState<string>(""); // State for message input
+  const [editIndex, setEditIndex] = useState<number | null>(null); // State for editing comments
 
-  const handleAddComment = (e) => {
+  const handleAddComment = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!name || !message) return alert("Both fields are required!");
 
@@ -25,13 +27,13 @@ export default function Comment() {
     setMessage("");
   };
 
-  const handleEditComment = (index) => {
+  const handleEditComment = (index: number) => {
     setEditIndex(index);
     setName(comments[index].name);
     setMessage(comments[index].message);
   };
 
-  const handleRemoveComment = (index) => {
+  const handleRemoveComment = (index: number) => {
     setComments(comments.filter((_, i) => i !== index));
   };
 
@@ -39,7 +41,9 @@ export default function Comment() {
     <div className="px-4">
       {/* Add Comment Section */}
       <div className="h-auto rounded-lg bg-slate-500 my-11 flex flex-col justify-center items-center py-8 px-4 md:px-11">
-        <h1 className="font-bold text-2xl md:text-3xl text-center">Comment Section</h1>
+        <h1 className="font-bold text-2xl md:text-3xl text-center">
+          Comment Section
+        </h1>
         <form onSubmit={handleAddComment} className="w-full max-w-lg mt-6">
           <input
             type="text"
@@ -90,7 +94,9 @@ export default function Comment() {
             </div>
           ))
         ) : (
-          <p className="text-center text-gray-600">No comments yet. Be the first to comment!</p>
+          <p className="text-center text-gray-600">
+            No comments yet. Be the first to comment!
+          </p>
         )}
       </div>
     </div>
